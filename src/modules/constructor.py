@@ -8,7 +8,8 @@ class Template:
     view: ft.View = field(init=False)
     
     def __post_init__(self):
-        self.route = self.auto_route() # type: ignore    
+        self.route = self.auto_route() # type: ignore
+        self.auto_import(self.import_text)  
         
     
     def auto_route(self):
@@ -23,12 +24,25 @@ class Template:
                 route = os.path.abspath(caller_file)
                 route = route.replace('\\',"/") #<- reconfiguramos los simbolos de navegacion
                 caperta_view = route.find('/views') #<- buscamos en la ruta la carpeta de las views
+                
+                self.import_text = route[caperta_view+1:]
+                
                 route = route[caperta_view:] #<- cortamos la ruta desde la carpeta views
+                
                 route = route[:-3] #<- eliminamos el .py
                 route = route[:-5] #<- se elimina el _views 
                 route = route[6:] #<- se elimina la caperta views para crear rutas limpias
                 return route
         return None
+    
+    def auto_import(self,import_text: str):
+        import_text = import_text.replace(".py", '')
+        import_text = import_text.replace('/',".")
+        comand = f'from {import_text}'
+        import_text = import_text.replace('views.','')
+        import_text = import_text.replace('_view','')
+        comand += f' import {import_text}'
+        print(comand)
 
     def make_view(self,view: ft.View):
         self.view = view
