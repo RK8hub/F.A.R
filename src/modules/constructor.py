@@ -1,12 +1,15 @@
 from dataclasses import dataclass, field
+import flet as ft
 import inspect, os
 
 @dataclass
 class Template:
     route: str = field(init=False)
+    view: ft.View = field(init=False)
     
     def __post_init__(self):
         self.route = self.auto_route() # type: ignore    
+        
     
     def auto_route(self):
         stack = inspect.stack()
@@ -26,3 +29,6 @@ class Template:
                 route = route[6:] #<- se elimina la caperta views para crear rutas limpias
                 return route
         return None
+
+    def make_view(self,view: ft.View):
+        self.view = view
