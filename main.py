@@ -1,10 +1,9 @@
+from src.modules.handler import handler_views
 import flet as ft
-from views.home_view import home
 
 def main(page: ft.Page):
-    page.title = "test"
-    page.views.clear()
-    page.views.append(home.view)
+    
+    page.views.extend(handler_views)
     page.update()
-
+    
 ft.app(main)

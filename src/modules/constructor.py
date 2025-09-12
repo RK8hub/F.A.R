@@ -9,7 +9,6 @@ class Template:
     
     def __post_init__(self):
         self.route = self.auto_route() # type: ignore
-        self.auto_import(self.import_text)  
         
     
     def auto_route(self):
@@ -35,14 +34,6 @@ class Template:
                 return route
         return None
     
-    def auto_import(self,import_text: str):
-        import_text = import_text.replace(".py", '')
-        import_text = import_text.replace('/',".")
-        comand = f'from {import_text}'
-        import_text = import_text.replace('views.','')
-        import_text = import_text.replace('_view','')
-        comand += f' import {import_text}'
-        print(comand)
-
     def make_view(self,view: ft.View):
         self.view = view
+    
