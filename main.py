@@ -1,9 +1,6 @@
-from src.modules.handler import handler_views
 import flet as ft
+from src.modules.handler import view_handler
 
 def main(page: ft.Page):
-    
-    page.views.extend(handler_views)
-    page.update()
-    
+    view_handler(page)
 ft.app(main)

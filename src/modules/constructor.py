@@ -5,6 +5,7 @@ import inspect, os
 @dataclass
 class Template:
     route: str = field(init=False)
+    page: ft.Page = field(init=False)
     view: ft.View = field(init=False)
     
     def __post_init__(self):
@@ -33,6 +34,7 @@ class Template:
                 route = route[6:] #<- se elimina la caperta views para crear rutas limpias
                 return route
         return None
+    
     
     def make_view(self,view: ft.View):
         self.view = view
