@@ -7,11 +7,11 @@ example2.make_view(
     
     ft.View(
         
-        route=example2.route,
+        route=example2.auto_route(),
         controls=[
             
-            ft.Text("example2"),
-            ft.Button("navega",on_click=lambda _: example2.page.go("/settings/example"))
+            ft.Text("And yes, it supports automatic routes at the same time. 😎  [{route}]"),
+            ft.Button("navegate",on_click=lambda _: example2.page.go("/"))
             
             
         ]

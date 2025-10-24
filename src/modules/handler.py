@@ -23,7 +23,6 @@ def view_handler(page: ft.Page):
     todas_las_views = cargar_views()
     rutas_dict = {v.route: v for v in todas_las_views}
     def route_change(e: ft.RouteChangeEvent):
-        print(page.route)
         page.views.clear()
         v = rutas_dict.get(e.route)
         if v:

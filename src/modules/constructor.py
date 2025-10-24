@@ -37,5 +37,10 @@ class Template:
     
     
     def make_view(self,view: ft.View):
+        if not self.route == view.route:
+            self.route = view.route
         self.view = view
+        for ctrl in view.controls:
+            if isinstance(ctrl, ft.Text) and "{route}" in str(ctrl.value):
+                ctrl.value = ctrl.value.replace("{route}", self.route)
     

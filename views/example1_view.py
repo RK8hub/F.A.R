@@ -7,10 +7,10 @@ example1.make_view(
     
     ft.View(
         
-        route=example1.route,
+        route='/',
         controls=[
-            ft.Text("example1"),
-            ft.Button("navega",on_click=lambda _: example1.page.go("/example2"))
+            ft.Text("Manual Routes Are Here! 🥳 [{route}]"),
+            ft.Button("navegate",on_click=lambda _: example1.page.go("/example2"))
             
         ]
         
