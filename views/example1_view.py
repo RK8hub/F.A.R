@@ -1,4 +1,4 @@
-from src.modules.constructor import Template
+from src.modules.far.constructor import Template
 import flet as ft
 
 example1 = Template()

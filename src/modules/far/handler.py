@@ -1,16 +1,16 @@
-import flet as ft
-import importlib
-import pathlib
+from flet import Page,RouteChangeEvent
+from importlib import import_module
+from pathlib import Path
 
 
 def cargar_views():
     views = []
-    ruta_views = pathlib.Path(__file__).parent.parent.parent / "views"
+    ruta_views = Path(__file__).parent.parent.parent.parent / "views"
     for archivo in ruta_views.rglob("*_view.py"):
         relative_path = archivo.relative_to(ruta_views.parent).with_suffix("")
         nombre_modulo = ".".join(relative_path.parts)
 
-        modulo = importlib.import_module(nombre_modulo)
+        modulo = import_module(nombre_modulo)
 
         nombre_var = archivo.stem.replace("_view", "")
         if hasattr(modulo, nombre_var):
@@ -19,10 +19,10 @@ def cargar_views():
     return views
 
 
-def view_handler(page: ft.Page):
+def view_handler(page: Page):
     todas_las_views = cargar_views()
     rutas_dict = {v.route: v for v in todas_las_views}
-    def route_change(e: ft.RouteChangeEvent):
+    def route_change(e: RouteChangeEvent):
         page.views.clear()
         v = rutas_dict.get(e.route)
         if v:
