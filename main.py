@@ -1,3 +1,6 @@
-from views.home_view import home
+import flet as ft
+from src.modules.far.handler import view_handler
 
-print(home.route)
+def main(page: ft.Page):
+    view_handler(page)
+ft.app(main)
