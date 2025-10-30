@@ -19,22 +19,19 @@ class Template:
 
         for frame_info in Stack[1:]:
             caller_file = frame_info.filename
-            if caller_file != current_file and not caller_file.startswith("<"):
+            if caller_file == current_file or caller_file.startswith("<"):
+                continue
                 
-                #limpiando la ruta
-                route = path.abspath(caller_file)
-                route = route.replace('\\',"/") #<- reconfiguramos los simbolos de navegacion
-                caperta_view = route.find('/views') #<- buscamos en la ruta la carpeta de las views
+            route = path.abspath(caller_file)
+            route = route.replace('\\',"/") 
+            caperta_view = route.find('/views')
+            self.import_text = route[caperta_view+1:]
                 
-                self.import_text = route[caperta_view+1:]
-                
-                route = route[caperta_view:] #<- cortamos la ruta desde la carpeta views
-                
-                route = route[:-3] #<- eliminamos el .py
-                route = route[:-5] #<- se elimina el _views 
-                route = route[6:] #<- se elimina la caperta views para crear rutas limpias
-                return route
-        return None
+            route = route[caperta_view:]
+            
+            route = route.replace('/views','')
+            route =  route.replace('_view.py','')
+            return route
     
     
     def make_view(self,view: View):
